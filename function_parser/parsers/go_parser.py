@@ -1,7 +1,7 @@
 from typing import List, Dict, Any
 
-from parsers.language_parser import LanguageParser, match_from_span, tokenize_code
-from parsers.commentutils import get_docstring_summary, strip_c_style_comment_delimiters
+from function_parser.parsers.language_parser import LanguageParser, match_from_span, tokenize_code
+from function_parser.parsers.commentutils import get_docstring_summary, strip_c_style_comment_delimiters
 
 
 class GoParser(LanguageParser):

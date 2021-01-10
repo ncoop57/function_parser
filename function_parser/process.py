@@ -20,9 +20,9 @@ from dpu_utils.codeutils.deduplication import DuplicateDetector
 import pandas as pd
 from tree_sitter import Language, Parser
 
-from language_data import LANGUAGE_METADATA
-from parsers.language_parser import LanguageParser, tokenize_docstring
-from utils import download, get_sha, flatten, remap_nwo, walk
+from function_parser.language_data import LANGUAGE_METADATA
+from function_parser.parsers.language_parser import LanguageParser, tokenize_docstring
+from function_parser.utils import download, get_sha, flatten, remap_nwo, walk
 
 class DataProcessor:
 

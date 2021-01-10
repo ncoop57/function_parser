@@ -1,7 +1,7 @@
 from typing import List, Dict, Any
 
-from parsers.language_parser import LanguageParser, match_from_span, tokenize_code
-from parsers.commentutils import get_docstring_summary
+from function_parser.parsers.language_parser import LanguageParser, match_from_span, tokenize_code
+from function_parser.parsers.commentutils import get_docstring_summary
 
 
 class RubyParser(LanguageParser):

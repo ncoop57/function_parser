@@ -1,7 +1,7 @@
 from typing import List, Dict, Any
 
-from parsers.language_parser import LanguageParser, match_from_span, tokenize_code, traverse_type
-from parsers.commentutils import strip_c_style_comment_delimiters, get_docstring_summary
+from function_parser.parsers.language_parser import LanguageParser, match_from_span, tokenize_code, traverse_type
+from function_parser.parsers.commentutils import strip_c_style_comment_delimiters, get_docstring_summary
 
 
 class PhpParser(LanguageParser):

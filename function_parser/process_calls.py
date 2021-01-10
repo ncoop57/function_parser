@@ -18,8 +18,8 @@ import pickle
 from docopt import docopt
 from tree_sitter import Language
 
-from language_data import LANGUAGE_METADATA
-from process import DataProcessor
+from function_parser.language_data import LANGUAGE_METADATA
+from function_parser.process import DataProcessor
 
 
 if __name__ == '__main__':

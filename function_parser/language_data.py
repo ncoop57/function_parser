@@ -1,9 +1,9 @@
-from parsers.go_parser import GoParser
-from parsers.java_parser import JavaParser
-from parsers.javascript_parser import JavascriptParser
-from parsers.php_parser import PhpParser
-from parsers.python_parser import PythonParser
-from parsers.ruby_parser import RubyParser
+from function_parser.parsers.go_parser import GoParser
+from function_parser.parsers.java_parser import JavaParser
+from function_parser.parsers.javascript_parser import JavascriptParser
+from function_parser.parsers.php_parser import PhpParser
+from function_parser.parsers.python_parser import PythonParser
+from function_parser.parsers.ruby_parser import RubyParser
 
 
 LANGUAGE_METADATA = {

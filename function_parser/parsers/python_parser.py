@@ -1,7 +1,7 @@
 from typing import Dict, Iterable, Optional, Iterator, Any, List
 
-from parsers.language_parser import LanguageParser, match_from_span, tokenize_code, traverse_type
-from parsers.commentutils import get_docstring_summary
+from function_parser.parsers.language_parser import LanguageParser, match_from_span, tokenize_code, traverse_type
+from function_parser.parsers.commentutils import get_docstring_summary
 
 
 class PythonParser(LanguageParser):

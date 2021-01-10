@@ -8,8 +8,8 @@ from dask.distributed import Client
 import dask.distributed
 from tqdm import tqdm
 
-from language_data import LANGUAGE_METADATA
-from utils import download
+from function_parser.language_data import LANGUAGE_METADATA
+from function_parser.utils import download
 
 # Gets notices
 LEGAL_FILES_REGEX ='(AUTHORS|NOTICE|LEGAL)(?:\..*)?\Z'

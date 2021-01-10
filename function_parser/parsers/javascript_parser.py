@@ -1,8 +1,8 @@
 from typing import List, Dict, Any
 
-from parsers.language_parser import LanguageParser, match_from_span, tokenize_code, traverse_type, previous_sibling, \
+from function_parser.parsers.language_parser import LanguageParser, match_from_span, tokenize_code, traverse_type, previous_sibling, \
     node_parent
-from parsers.commentutils import get_docstring_summary, strip_c_style_comment_delimiters
+from function_parser.parsers.commentutils import get_docstring_summary, strip_c_style_comment_delimiters
 
 
 class JavascriptParser(LanguageParser):
