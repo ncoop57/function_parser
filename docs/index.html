@@ -37,7 +37,7 @@ nb_path: "nbs/index.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><code>pip install function_parser</code></p>
+<p><code>pip install function-parser</code></p>
 
 </div>
 </div>
@@ -50,7 +50,9 @@ nb_path: "nbs/index.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Download and build your corresponding grammar. See blah for detailed instructions for the supported languages.</p>
+<p>In order to use the library you must download and build the language grammars for <code>tree-sitter</code> to parser source code with. Included in the library is a handy CLI tool for setting this up.</p>
+<p>To download and build grammars: <a href="/function_parser/build_grammars.html"><code>build_grammars</code></a></p>
+<p>This command will download and build the grammars in the same location this python library was installed on your computer after pip installing.</p>
 
 </div>
 </div>
@@ -62,7 +64,26 @@ nb_path: "nbs/index.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">function_parser</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">function_parser.language_data</span> <span class="kn">import</span> <span class="n">LANGUAGE_METADATA</span>
+<span class="kn">from</span> <span class="nn">function_parser.process</span> <span class="kn">import</span> <span class="n">DataProcessor</span>
+<span class="kn">from</span> <span class="nn">tree_sitter</span> <span class="kn">import</span> <span class="n">Language</span>
+
+<span class="n">language</span> <span class="o">=</span> <span class="s2">&quot;python&quot;</span>
+<span class="n">DataProcessor</span><span class="o">.</span><span class="n">PARSER</span><span class="o">.</span><span class="n">set_language</span><span class="p">(</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">function_parser</span><span class="o">.</span><span class="n">__path__</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;tree-sitter-languages.so&quot;</span><span class="p">),</span> <span class="n">language</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">processor</span> <span class="o">=</span> <span class="n">DataProcessor</span><span class="p">(</span>
+    <span class="n">language</span><span class="o">=</span><span class="n">language</span><span class="p">,</span> <span class="n">language_parser</span><span class="o">=</span><span class="n">LANGUAGE_METADATA</span><span class="p">[</span><span class="n">language</span><span class="p">][</span><span class="s2">&quot;language_parser&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">dependee</span> <span class="o">=</span> <span class="s2">&quot;keras-team/keras&quot;</span>
+<span class="n">definitions</span> <span class="o">=</span> <span class="n">processor</span><span class="o">.</span><span class="n">process_dee</span><span class="p">(</span><span class="n">dependee</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="n">LANGUAGE_METADATA</span><span class="p">[</span><span class="n">language</span><span class="p">][</span><span class="s2">&quot;ext&quot;</span><span class="p">])</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">definitions</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -75,9 +96,130 @@ nb_path: "nbs/index.ipynb"
 <div class="output_area">
 
 
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<div class="output_text output_subarea output_execute_result">
-<pre>2</pre>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>nwo</th>
+      <th>sha</th>
+      <th>path</th>
+      <th>language</th>
+      <th>identifier</th>
+      <th>parameters</th>
+      <th>argument_list</th>
+      <th>return_statement</th>
+      <th>docstring</th>
+      <th>docstring_summary</th>
+      <th>docstring_tokens</th>
+      <th>function</th>
+      <th>function_tokens</th>
+      <th>url</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>keras-team/keras</td>
+      <td>e43af6c89cd6c4adecc21ad5fc05b21e7fa9477b</td>
+      <td>keras/backend.py</td>
+      <td>python</td>
+      <td>backend</td>
+      <td>()</td>
+      <td></td>
+      <td>return 'tensorflow'</td>
+      <td>Publicly accessible method for determining the...</td>
+      <td>Publicly accessible method for determining the...</td>
+      <td>[Publicly, accessible, method, for, determinin...</td>
+      <td>def backend():\n  """Publicly accessible metho...</td>
+      <td>[def, backend, (, ), :, return, 'tensorflow']</td>
+      <td>https://github.com/keras-team/keras/blob/e43af...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>keras-team/keras</td>
+      <td>e43af6c89cd6c4adecc21ad5fc05b21e7fa9477b</td>
+      <td>keras/backend.py</td>
+      <td>python</td>
+      <td>cast_to_floatx</td>
+      <td>(x)</td>
+      <td></td>
+      <td>return np.asarray(x, dtype=floatx())</td>
+      <td>Cast a Numpy array to the default Keras float ...</td>
+      <td>Cast a Numpy array to the default Keras float ...</td>
+      <td>[Cast, a, Numpy, array, to, the, default, Kera...</td>
+      <td>def cast_to_floatx(x):\n  """Cast a Numpy arra...</td>
+      <td>[def, cast_to_floatx, (, x, ), :, if, isinstan...</td>
+      <td>https://github.com/keras-team/keras/blob/e43af...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>keras-team/keras</td>
+      <td>e43af6c89cd6c4adecc21ad5fc05b21e7fa9477b</td>
+      <td>keras/backend.py</td>
+      <td>python</td>
+      <td>get_uid</td>
+      <td>(prefix='')</td>
+      <td></td>
+      <td>return layer_name_uids[prefix]</td>
+      <td>Associates a string prefix with an integer cou...</td>
+      <td>Associates a string prefix with an integer cou...</td>
+      <td>[Associates, a, string, prefix, with, an, inte...</td>
+      <td>def get_uid(prefix=''):\n  """Associates a str...</td>
+      <td>[def, get_uid, (, prefix, =, '', ), :, graph, ...</td>
+      <td>https://github.com/keras-team/keras/blob/e43af...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>keras-team/keras</td>
+      <td>e43af6c89cd6c4adecc21ad5fc05b21e7fa9477b</td>
+      <td>keras/backend.py</td>
+      <td>python</td>
+      <td>reset_uids</td>
+      <td>()</td>
+      <td></td>
+      <td></td>
+      <td>Resets graph identifiers.</td>
+      <td>Resets graph identifiers.</td>
+      <td>[Resets, graph, identifiers, .]</td>
+      <td>def reset_uids():\n  """Resets graph identifie...</td>
+      <td>[def, reset_uids, (, ), :, PER_GRAPH_OBJECT_NA...</td>
+      <td>https://github.com/keras-team/keras/blob/e43af...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>keras-team/keras</td>
+      <td>e43af6c89cd6c4adecc21ad5fc05b21e7fa9477b</td>
+      <td>keras/backend.py</td>
+      <td>python</td>
+      <td>clear_session</td>
+      <td>()</td>
+      <td></td>
+      <td></td>
+      <td>Resets all state generated by Keras.\n\n  Kera...</td>
+      <td>Resets all state generated by Keras.</td>
+      <td>[Resets, all, state, generated, by, Keras, .]</td>
+      <td>def clear_session():\n  """Resets all state ge...</td>
+      <td>[def, clear_session, (, ), :, global, _SESSION...</td>
+      <td>https://github.com/keras-team/keras/blob/e43af...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 </div>
 
 </div>
