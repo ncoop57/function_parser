@@ -7,6 +7,7 @@ from tree_sitter import Language
 _GRAMMARs = {
     "go": ("https://github.com/tree-sitter/tree-sitter-go.git", "tree-sitter-go", "v0.13.3"),
     "java": ("https://github.com/tree-sitter/tree-sitter-java.git", "tree-sitter-java", "v0.13.0"),
+    "javascript": ("https://github.com/tree-sitter/tree-sitter-javascript.git", "tree-sitter-javascript", "v0.13.10"),
     "python": ("https://github.com/tree-sitter/tree-sitter-python.git", "tree-sitter-python", "v0.14.0"),
 }
 
