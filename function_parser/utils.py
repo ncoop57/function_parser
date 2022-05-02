@@ -26,10 +26,10 @@ def chunks(l: List, n: int):
 def remap_nwo(nwo: str) -> Tuple[str, str]:
     r = requests.get('https://github.com/{}'.format(nwo))
     if r.status_code not in (404, 451, 502): # DMCA
-        if 'migrated' not in r.text:
-            if r.history:
-                return (nwo, '/'.join(re.findall(r'"https://github.com/.+"', r.history[0].text)[0].strip('"').split('/')[-2:]))
-            return (nwo, nwo)
+        # if 'migrated' not in r.text:
+        if r.history:
+            return (nwo, '/'.join(re.findall(r'"https://github.com/.+"', r.history[0].text)[0].strip('"').split('/')[-2:]))
+        return (nwo, nwo)
     return (nwo, None)
 
 
