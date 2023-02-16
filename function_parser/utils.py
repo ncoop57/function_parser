@@ -24,7 +24,7 @@ def chunks(l: List, n: int):
 
 
 def remap_nwo(nwo: str) -> Tuple[str, str]:
-    r = requests.get('https://github.com/{}'.format(nwo))
+    r = requests.get(f'https://github.com/{nwo}')
     if r.status_code not in (404, 451, 502): # DMCA
         if 'migrated' not in r.text:
             if r.history:
@@ -42,10 +42,11 @@ def get_sha(tmp_dir: tempfile.TemporaryDirectory, nwo: str):
     return sha
 
 
-def download(nwo: str):
+def download(nwo: str, oauth_token: str = None):
     os.environ['GIT_TERMINAL_PROMPT'] = '0'
     tmp_dir = tempfile.TemporaryDirectory()
-    cmd = ['git', 'clone', '--depth=1', 'https://github.com/{}.git'.format(nwo), '{}/{}'.format(tmp_dir.name, nwo)]
+    url = f'https://oauth2:{oauth_token}@github.com/{nwo}.git' if oauth_token else f'https://github.com/{nwo}.git'
+    cmd = ['git', 'clone', '--depth=1', url, '{}/{}'.format(tmp_dir.name, nwo)]
     subprocess.run(cmd, stdin=subprocess.DEVNULL, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
     return tmp_dir
 
