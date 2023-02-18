@@ -32,7 +32,7 @@ class DataProcessor:
         self.language = language
         self.language_parser = language_parser
 
-    def process_dee(self, nwo, ext, oauth_token: str = None) -> List[Dict[str, Any]]:
+    def process_dee(self, nwo: str, ext: str, oauth_token: str = None, branch: str = None, only_branch: bool = False) -> List[Dict[str, Any]]:
         # Process dependees (libraries) to get function implementations
         indexes = []
         _, nwo_remapped = remap_nwo(nwo)
@@ -42,7 +42,7 @@ class DataProcessor:
         if nwo_remapped:
             nwo = nwo_remapped
 
-        tmp_dir = download(nwo, oauth_token)
+        tmp_dir = download(nwo, oauth_token, branch, only_branch)
         files = walk(tmp_dir, ext)
         # files = glob.iglob(tmp_dir.name + '/**/*.{}'.format(ext), recursive=True)
         sha = None
