@@ -42,11 +42,18 @@ def get_sha(tmp_dir: tempfile.TemporaryDirectory, nwo: str):
     return sha
 
 
-def download(nwo: str, oauth_token: str = None):
+def download(nwo: str, oauth_token: str = None, branch: str = None, only_branch: bool = False):
     os.environ['GIT_TERMINAL_PROMPT'] = '0'
     tmp_dir = tempfile.TemporaryDirectory()
     url = f'https://oauth2:{oauth_token}@github.com/{nwo}.git' if oauth_token else f'https://github.com/{nwo}.git'
-    cmd = ['git', 'clone', '--depth=1', url, '{}/{}'.format(tmp_dir.name, nwo)]
+    cmd = ['git', 'clone', '--depth=1', url, f'{tmp_dir.name}/{nwo}']
+
+    if branch:
+        cmd += ['-b', branch]
+
+    if only_branch:
+        cmd += ['--single-branch']
+
     subprocess.run(cmd, stdin=subprocess.DEVNULL, stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
     return tmp_dir
 
