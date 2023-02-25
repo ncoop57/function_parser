@@ -20,6 +20,7 @@ from tree_sitter import Language
 
 from function_parser.language_data import LANGUAGE_METADATA
 from function_parser.process import DataProcessor
+from function_parser.utils import flatten
 
 
 if __name__ == '__main__':
@@ -44,7 +45,7 @@ if __name__ == '__main__':
 
     definitions = defaultdict(list)
     with open(args['DEFINITION_FILE'], 'rb') as f:
-        for d in pickle.load(f)
+        for d in pickle.load(f):
             definitions[d['nwo']].append(d)
     definitions = dict(definitions)
 
