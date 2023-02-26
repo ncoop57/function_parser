@@ -23,12 +23,12 @@ def chunks(l: List, n: int):
         yield l[i:i + n]
 
 
-def remap_nwo(nwo: str) -> Tuple[str, str]:
-    r = requests.get(f'https://github.com/{nwo}')
+def remap_nwo(nwo: str, base_url: str = 'https://github.com') -> Tuple[str, str]:
+    r = requests.get(f'{base_url}/{nwo}')
     if r.status_code not in (404, 451, 502): # DMCA
         if 'migrated' not in r.text:
             if r.history:
-                return (nwo, '/'.join(re.findall(r'"https://github.com/.+"', r.history[0].text)[0].strip('"').split('/')[-2:]))
+                return (nwo, '/'.join(re.findall(fr'"{base_url}/.+"', r.history[0].text)[0].strip('"').split('/')[-2:]))
             return (nwo, nwo)
     return (nwo, None)
 
@@ -42,10 +42,11 @@ def get_sha(tmp_dir: tempfile.TemporaryDirectory, nwo: str):
     return sha
 
 
-def download(nwo: str, oauth_token: str = None, branch: str = None, only_branch: bool = False):
+def download(nwo: str, base_url: str = 'https://github.com', oauth_token: str = None, branch: str = None, only_branch: bool = False):
     os.environ['GIT_TERMINAL_PROMPT'] = '0'
     tmp_dir = tempfile.TemporaryDirectory()
-    url = f'https://oauth2:{oauth_token}@github.com/{nwo}.git' if oauth_token else f'https://github.com/{nwo}.git'
+    oauth_url = base_url.split('://')[1]
+    url = f'https://oauth2:{oauth_token}@{oauth_url}/{nwo}.git' if oauth_token else f'{base_url}/{nwo}.git'
     cmd = ['git', 'clone', '--depth=1', url, f'{tmp_dir.name}/{nwo}']
 
     if branch:
